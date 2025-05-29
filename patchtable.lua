@@ -220,10 +220,48 @@ pfQuest_Loc = setmetatable(locales[GetLocale()] or {}, { __index = function(tab,
  return value
 end})
 
+local L = pfQuest_Loc
 
+-- welcome/init popup dialog
+  -- welcome title
+pfQuestInit.title:SetText(L["Please select your preferred |cff33ffccpf|cffffffffQuest|r mode:"])
 
+  -- questing mode
+  local buttons = {
+    { caption = L["Simple Markers"], 
+      tooltip = L["Only show cluster icons with summarized objective locations based on spawn points"] },
+    { caption = L["Combined"], 
+      tooltip = L["Show cluster icons with summarized locations and also display all spawn points of each quest objective"] },
+    { caption = L["Spawn Points"], 
+      tooltip = L["Display all spawn points of each quest objective and hide summarized cluster icons."] },
+  }
 
+  for i, button in pairs(buttons) do
+    pfQuestInit[i].caption:SetText(button.caption)
 
+    local OnEnter = pfQuestInit[i]:GetScript("OnEnter")
+    pfQuestInit[i]:SetScript("OnEnter", function()
+      if OnEnter then OnEnter() end
+      GameTooltip_SetDefaultAnchor(GameTooltip, this)
+
+      GameTooltip:SetText(this.caption:GetText())
+      GameTooltip:AddLine(buttons[this:GetID()].tooltip, 1, 1, 1, true)
+      GameTooltip:SetWidth(100)
+      GameTooltip:Show()
+    end)
+  end
+  -- show arrows
+  pfQuestInit.checkbox.caption:SetText(L["Show Navigation Arrow"])
+  pfQuestInit.checkbox:SetScript("OnEnter", function()
+    GameTooltip_SetDefaultAnchor(GameTooltip, this)
+    GameTooltip:SetText(L["Navigation Arrow"])
+    GameTooltip:AddLine(L["Show navigation arrow that points you to the nearest quest location."], 1, 1, 1, true)
+    GameTooltip:SetWidth(100)
+    GameTooltip:Show()
+  end)
+
+  -- save button
+  pfQuestInit.save.text:SetText(L["Save & Close"])
 
 -- Reload all pfQuest internal database shortcuts
 pfDatabase:Reload()
