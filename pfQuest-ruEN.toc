@@ -1,0 +1,7 @@
+## Interface: 11200
+## Title: |cff33ffccpf|cffffffffQuest |cffcccccc[TurtleWoW ruEN]
+## Notes: Подсовываем русский перевод в pfQuest
+## Version: GIT
+## Dependencies: pfQuest
+
+patchtable.lua
