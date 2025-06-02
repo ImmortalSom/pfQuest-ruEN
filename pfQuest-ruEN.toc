@@ -5,3 +5,5 @@
 ## Dependencies: pfQuest
 
 patchtable.lua
+
+patch-icon.lua
