@@ -1,10 +1,11 @@
 -- detect current addon path
 local addonpath
-  local current = "pfQuest-icons"
-  local _, title = GetAddOnInfo(current)
-  if title then
+local current = "pfQuest-icons"
+
+local _, title = GetAddOnInfo(current)
+if title then
     addonpath = "Interface\\AddOns\\" .. current
-  end
+end
 
 -- get the current localization from spawn id
 local push_icon = function(id, texture)
@@ -14,10 +15,7 @@ local push_icon = function(id, texture)
 end
 
 -- load icons into pfQuest.icons
-if not pfQuest.icons then
-  DEFAULT_CHAT_FRAME:AddMessage("|cff33ffccpf|cffffffffQuest-Icons: A newer version of pfQuest is required.")
-  DEFAULT_CHAT_FRAME:AddMessage("  You can get the latest version from: https://shagu.org/pfQuest")
-else
+if pfQuest.icons then
 	-- /db mines
   push_icon(1731, addonpath .. "\\mines\\Copper") -- Copper Vein
   push_icon(1732, addonpath .. "\\mines\\Tin") -- Tin Vein
